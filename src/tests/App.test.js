@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import App from '../App';
+import Wallet from '../pages/Wallet';
 
 describe('Testes realizados na página de Login', () => {
   const email = 'alguem@alguem.com';
@@ -65,5 +66,26 @@ describe('Testes realizados na página de Login', () => {
     expect(passwordInput.value).toBe(password);
     userEvent.click(button);
     expect(history.location.pathname).toBe('/carteira');
+  });
+
+  test('testa se ao clicar no botão o email é salvo no estado global da aplicaçãp', () => {
+    const { store } = renderWithRouterAndRedux(<App />);
+    const emailInput = screen.getByRole('textbox', { name: /email:/i });
+    const passwordInput = screen.getByLabelText(/senha:/i);
+    const button = screen.getByRole('button', { name: /entrar/i });
+    userEvent.type(emailInput, email);
+    userEvent.type(passwordInput, password);
+
+    userEvent.click(button);
+    expect(store.getState().user.email).toBe(email);
+  });
+});
+
+describe('Testes realizados na página de Wallet', () => {
+  test('teste se os elementos do Header aparecem na tela tela', () => {
+    renderWithRouterAndRedux(<Wallet />);
+    expect(screen.getByTestId('email-field')).toBeInTheDocument();
+    expect(screen.getByText(/brl/i)).toBeInTheDocument();
+    expect(screen.getByTestId('total-field')).toBeInTheDocument();
   });
 });

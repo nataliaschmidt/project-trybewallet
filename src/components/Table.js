@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteExpenseAction, expenseForEditAction } from '../redux/actions';
+
+// TENTANDO RESOLVER REQUISITO 9
 
 class Table extends Component {
+  deleteExpense = (id) => {
+    const { expenses, dispatch } = this.props;
+    const newArrayExpenses = expenses.filter((expenseFiltered) => (
+      expenseFiltered.id !== id
+    ));
+    dispatch(deleteExpenseAction(newArrayExpenses));
+  };
+
+  editExpenses = (id) => {
+    const { dispatch } = this.props;
+    dispatch(expenseForEditAction(id));
+  };
+
   render() {
     const { expenses } = this.props;
     return (
@@ -42,6 +58,24 @@ class Table extends Component {
                 <td>{ask.toFixed(2)}</td>
                 <td>{(Number(value) * ask).toFixed(2)}</td>
                 <td>Real</td>
+                <td>
+                  <button
+                    type="button"
+                    data-testid="edit-btn"
+                    onClick={ () => this.editExpenses(id) }
+                  >
+                    Editar
+
+                  </button>
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ () => this.deleteExpense(id) }
+                  >
+                    Excluir
+
+                  </button>
+                </td>
               </tr>
             );
           })}
@@ -58,5 +92,6 @@ const mapStateToProps = (state) => ({
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({
   }).isRequired).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps)(Table);
