@@ -29,7 +29,7 @@ class WalletForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const { apiReturn } = this.props;
     const {
       id,
