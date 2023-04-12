@@ -3,9 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import App from '../App';
-import Wallet from '../pages/Wallet';
 
-describe('Testes realizados na página de Login', () => {
+describe('Testes realizados no componente App', () => {
   const email = 'alguem@alguem.com';
   const password = '123456';
 
@@ -78,14 +77,5 @@ describe('Testes realizados na página de Login', () => {
 
     userEvent.click(button);
     expect(store.getState().user.email).toBe(email);
-  });
-});
-
-describe('Testes realizados na página de Wallet', () => {
-  test('teste se os elementos do Header aparecem na tela tela', () => {
-    renderWithRouterAndRedux(<Wallet />);
-    expect(screen.getByTestId('email-field')).toBeInTheDocument();
-    expect(screen.getByText(/brl/i)).toBeInTheDocument();
-    expect(screen.getByTestId('total-field')).toBeInTheDocument();
   });
 });
