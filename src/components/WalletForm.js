@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { resolveFetchCurrency } from '../redux/actions';
+import { resolveFetchCurrency, addExpenses } from '../redux/actions';
 
 const CATEGORIES = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class WalletForm extends Component {
   state = {
-    valueExpense: 0,
-    descriptionExpense: '',
-    currency: '',
-    method: '',
-    category: '',
+    id: 0,
+    value: '',
+    description: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: CATEGORIES[0],
   };
 
   componentDidMount() {
@@ -26,31 +27,65 @@ class WalletForm extends Component {
     });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const { apiReturn } = this.props;
+    const {
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    } = this.state;
+    const expense = {
+      id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: apiReturn,
+    };
+    const { dispatch } = this.props;
+    dispatch(addExpenses(expense));
+    this.setState((current) => ({
+      id: current.id + 1,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: CATEGORIES[0],
+    }));
+    dispatch(resolveFetchCurrency());
+  };
+
   render() {
-    const { valueExpense, descriptionExpense, currency, method, category } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     const { currencies } = this.props;
     return (
-      <form>
-        <label htmlFor="valueExpense">
+      <form onSubmit={ this.handleSubmit }>
+        <label htmlFor="value">
           Valor:
           <input
             data-testid="value-input"
-            id="valueExpense"
+            id="value"
             type="number"
-            name="valueExpense"
-            value={ valueExpense }
+            name="value"
+            value={ value }
             onChange={ this.handleChange }
           />
         </label>
 
-        <label htmlFor="descriptionExpense">
-          Valor:
+        <label htmlFor="description">
+          Descrição:
           <input
             data-testid="description-input"
-            id="descriptionExpense"
+            id="description"
             type="text"
-            name="descriptionExpense"
-            value={ descriptionExpense }
+            name="description"
+            value={ description }
             onChange={ this.handleChange }
           />
         </label>
@@ -87,13 +122,13 @@ class WalletForm extends Component {
           </select>
         </label>
 
-        <label htmlFor="category">
+        <label htmlFor="tag">
           Categoria:
           <select
             data-testid="tag-input"
-            id="category"
-            name="category"
-            value={ category }
+            id="tag"
+            name="tag"
+            value={ tag }
             onChange={ this.handleChange }
           >
             {
@@ -103,7 +138,7 @@ class WalletForm extends Component {
             }
           </select>
         </label>
-
+        <button>Adicionar despesa</button>
       </form>
     );
   }
@@ -112,10 +147,12 @@ class WalletForm extends Component {
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  apiReturn: PropTypes.shape({}).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  apiReturn: state.wallet.apiReturn,
 });
 
 export default connect(mapStateToProps)(WalletForm);
