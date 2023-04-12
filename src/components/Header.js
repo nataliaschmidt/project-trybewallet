@@ -19,7 +19,7 @@ class Header extends Component {
       <div>
         <p data-testid="email-field">{email}</p>
         <p data-testid="total-field">
-          {`Total de despesas: ${this.sumExpenses()}`}
+          {this.sumExpenses()}
         </p>
         <p data-testid="header-currency-field">BRL</p>
       </div>
