@@ -1,6 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import WalletForm from '../components/WalletForm';
 import mockFetch from './helpers/mockFetch';
@@ -8,6 +9,26 @@ import mockData from './helpers/mockData';
 
 const tag = 'Alimentação';
 const email = 'alguem@alguem.com';
+const initialState = {
+  user: { email },
+  wallet: {
+    apiReturn: mockData,
+    currencies: ['USD', 'CAD', 'GBP', 'ARS', 'BTC', 'LTC', 'EUR', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP', 'DOGE'],
+    expenses: [
+      {
+        id: 0,
+        value: '10',
+        description: 'teste1',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag,
+        exchangeRates: mockData,
+      },
+    ],
+    editor: false,
+    idToEdit: 0,
+  },
+};
 
 describe('Testes realizados no componente WalletForm', () => {
   test('Testa se o formulário é renderizado corretamente', () => {
@@ -33,26 +54,6 @@ describe('Testes realizados no componente WalletForm', () => {
   });
 
   test('Testa se o formulário recebe os valores', () => {
-    const initialState = {
-      user: { email },
-      wallet: {
-        apiReturn: mockData,
-        currencies: ['USD', 'CAD', 'GBP', 'ARS', 'BTC', 'LTC', 'EUR', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP', 'DOGE'],
-        expenses: [
-          {
-            id: 0,
-            value: '10',
-            description: 'teste1',
-            currency: 'USD',
-            method: 'Dinheiro',
-            tag,
-            exchangeRates: mockData,
-          },
-        ],
-        editor: false,
-        idToEdit: 0,
-      },
-    };
     renderWithRouterAndRedux(<WalletForm />, { initialState });
     const inputValue = screen.getByRole('spinbutton', {
       name: /valor:/i,
@@ -84,8 +85,9 @@ describe('Testes realizados no componente WalletForm', () => {
 
     userEvent.selectOptions(inputTag, 'Lazer');
     expect(inputTag.value).toBe('Lazer');
-
-    userEvent.click(buttonAddExpense);
+    act(() => {
+      userEvent.click(buttonAddExpense);
+    });
     expect(inputValue.value).toBe('');
     expect(inputDescription.value).toBe('');
     expect(inputCurrency.value).toBe('USD');
@@ -93,36 +95,18 @@ describe('Testes realizados no componente WalletForm', () => {
     expect(inputTag.value).toBe(tag);
   });
 
-  test('Testa se o fetch é chamado corretamente', () => {
-    const initialState = {
-      user: { email },
-      wallet: {
-        apiReturn: mockData,
-        currencies: ['USD', 'CAD', 'GBP', 'ARS', 'BTC', 'LTC', 'EUR', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP', 'DOGE'],
-        expenses: [
-          {
-            id: 0,
-            value: '10',
-            description: 'teste1',
-            currency: 'USD',
-            method: 'Dinheiro',
-            tag,
-            exchangeRates: mockData,
-          },
-        ],
-        editor: false,
-        idToEdit: 0,
-      },
-    };
+  test('Testa se o fetch é chamado corretamente', async () => {
     mockFetch();
-    renderWithRouterAndRedux(<WalletForm />, { initialState });
+    await act(async () => {
+      renderWithRouterAndRedux(<WalletForm />, { initialState });
+    });
 
     expect(fetch).toHaveBeenCalledTimes(1);
   });
 
-  test('Testa o botão de editar despesas', () => {
+  test('Testa o botão de editar despesas', async () => {
     mockFetch();
-    const initialState = {
+    const initialStateEditorTrue = {
       user: { email: 'alguem@alguem.com' },
       wallet: {
         apiReturn: mockData,
@@ -142,13 +126,17 @@ describe('Testes realizados no componente WalletForm', () => {
         idToEdit: 0,
       },
     };
-    renderWithRouterAndRedux(<WalletForm />, { initialState });
+    await act(async () => {
+      renderWithRouterAndRedux(<WalletForm />, { initialState: initialStateEditorTrue });
+    });
 
     const btnEditExpense = screen.getByRole('button', {
       name: /editar despesa/i,
     });
     expect(btnEditExpense).toBeInTheDocument();
-    userEvent.click(btnEditExpense);
+    act(() => {
+      userEvent.click(btnEditExpense);
+    });
 
     const inputValue = screen.getByRole('spinbutton', {
       name: /valor:/i,

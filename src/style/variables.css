@@ -1,0 +1,34 @@
+.light {
+
+  --primary-font-color: #353535;
+
+  --secondary-font-color: #f4a259;
+
+  --primary-accent: #8cb369;
+
+  --secondary-accent: #5b8e7d;
+
+  --body-background: #f7ede2;
+
+  --icon-color: darkgreen;
+
+  --table-color: #f7ede2;
+}
+
+.dark {
+
+  --primary-font-color: #f2f4f3;
+
+  --secondary-font-color: #ba6c27;
+
+  --primary-accent: #5c7646;
+
+  --secondary-accent: #39594e;
+
+  --body-background: #1f2421;
+
+  --icon-color: #72b672;
+
+  --table-color: #1f2421;
+}
+

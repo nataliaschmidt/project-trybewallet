@@ -1,0 +1,23 @@
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.icon-green {
+  color: var(--icon-color);
+  height: 30px;
+  width: 50px;
+}
+
+header > p {
+  align-items: center;
+  display: flex;
+  font-weight: 600;
+  justify-content: center;
+  margin-bottom: 3%;
+}
+
+.logo-trybe-wallet-header {
+  width: 150px;
+}

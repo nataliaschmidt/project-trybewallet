@@ -1,0 +1,25 @@
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+.container-text {
+  width: 30%;
+}
+
+.container-select {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.label-select {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}

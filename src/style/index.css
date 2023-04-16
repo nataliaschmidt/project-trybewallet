@@ -1,0 +1,21 @@
+@import url('./variables.css') ;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+#container-all {
+  background-color: var(--body-background);
+  color: var(--primary-font-color);
+  min-height: 100vh;
+}

@@ -1,0 +1,58 @@
+.container-table {
+  background-color: var(--secondary-accent);
+  border-radius: 10px;
+  box-shadow: 2px 4px 15px 2px rgba(5, 18, 54, 0.4);
+  display: flex;
+  height: max-content;
+  justify-content: center;
+  left: 50%;
+  padding: 15% 2% 5%;
+  position: absolute;
+  top: 20%;
+  transform: translateX(-50%);
+  width: 80%;
+  z-index: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  box-shadow: 2px 4px 15px 2px rgba(5, 18, 54, 0.4);
+  text-align: center;
+}
+
+th {
+  background-color: var(--secondary-font-color);
+  border-bottom: 1px solid var(--secondary-accent);
+  padding: 0 10px 5px;
+}
+
+th:not( :last-child ) {
+  border-right: 1px solid var(--secondary-accent);
+}
+
+
+td {
+  background-color: var(--table-color);
+  border-bottom: 1px solid var(--secondary-accent);
+  border-top: 1px solid var(--secondary-font-color);
+  padding: 5px 0;
+  vertical-align: middle;
+}
+
+.btn-expense {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.icon-edit {
+  color: #087e8b;
+  font-size: 1.5em;
+}
+
+.icon-delete {
+  color: #ba181b;
+  font-size: 1.5em;
+}

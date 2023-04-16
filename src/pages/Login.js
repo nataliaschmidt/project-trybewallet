@@ -1,7 +1,12 @@
+/* eslint-disable react/jsx-max-depth */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addUserInfosAction } from '../redux/actions';
+import circle from '../assets/images/circle.png';
+import logoDark from '../assets/images/logo-dark.png';
+import expenseFigure from '../assets/images/expenses.png';
+import '../style/Login.css';
 
 const MIN_LENGTH_PASSWORD = 6;
 
@@ -42,39 +47,71 @@ class Login extends React.Component {
   render() {
     const { email, password, isButtonDisabled } = this.state;
     return (
-      <form
-        onSubmit={ this.handleSubmit }
-      >
-        <label htmlFor="email">
-          Email:
-          <input
-            data-testid="email-input"
-            id="email"
-            type="email"
-            name="email"
-            value={ email }
-            onChange={ this.handleChange }
+      <div className="container-login-page">
+        <div className="container-imgs">
+          <img
+            className="circle"
+            src={ circle }
+            alt="círculo verde contendo o desenho de despesas"
           />
-        </label>
+          <img
+            className="expense-figure"
+            src={ expenseFigure }
+            alt="figura contendo diversos exemplos de despesas"
+          />
+        </div>
 
-        <label htmlFor="password">
-          Senha:
-          <input
-            data-testid="password-input"
-            id="password"
-            type="password"
-            name="password"
-            value={ password }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button
-          disabled={ isButtonDisabled }
+        <form
+          onSubmit={ this.handleSubmit }
+          className="form-login"
         >
-          Entrar
+          <img
+            className="logo-trybe-wallet-login"
+            src={ logoDark }
+            alt="logo trybe wallet"
+          />
 
-        </button>
-      </form>
+          <div className="field">
+            <p className="control has-icons-left">
+              <input
+                className="input"
+                type="email"
+                data-testid="email-input"
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+              <span className="icon is-small is-left">
+                <i className="fas fa-envelope" />
+              </span>
+            </p>
+          </div>
+
+          <div className="field">
+            <p className="control has-icons-left">
+              <input
+                className="input"
+                type="password"
+                data-testid="password-input"
+                name="password"
+                value={ password }
+                onChange={ this.handleChange }
+              />
+              <span className="icon is-small is-left">
+                <i className="fas fa-lock" />
+              </span>
+            </p>
+          </div>
+
+          <button
+            className="button is-info is-rounded"
+            disabled={ isButtonDisabled }
+          >
+            Entrar
+
+          </button>
+        </form>
+      </div>
     );
   }
 }

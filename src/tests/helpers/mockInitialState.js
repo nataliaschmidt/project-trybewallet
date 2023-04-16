@@ -19,6 +19,9 @@ const initialState = {
     editor: false,
     idToEdit: 0,
   },
+  toggleTheme: {
+    theme: 'light',
+  },
 };
 
 export default initialState;

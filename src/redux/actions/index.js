@@ -8,6 +8,7 @@ export const ADD_EXPENSES = 'ADD_EXPENSES';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const EXPENSE_FOR_EDIT = 'EXPENSE_FOR_EDIT ';
 export const UPPDATE_EXPENSE = 'UPPDATE_EXPENSE';
+export const TOGGLE_THEME = 'TOGGLE_THEME';
 
 export const addUserInfosAction = (email) => ({
   type: ADD_USER_INFOS,
@@ -26,19 +27,10 @@ const requestSuccessfull = (data) => ({
 
 });
 
-const requestFailed = (error) => ({
-  type: REQUEST_FAILED,
-  error,
-});
-
 export const resolveFetchCurrency = () => async (dispatch) => {
-  try {
-    dispatch(requestStarted());
-    const data = await fetchCurrency();
-    dispatch(requestSuccessfull(data));
-  } catch (error) {
-    dispatch(requestFailed(error));
-  }
+  dispatch(requestStarted());
+  const data = await fetchCurrency();
+  dispatch(requestSuccessfull(data));
 };
 
 export const addExpenses = (expenses) => ({
@@ -59,4 +51,8 @@ export const expenseForEditAction = (expense) => ({
 export const uppdateExpanseAction = (newExpenses) => ({
   type: UPPDATE_EXPENSE,
   payload: newExpenses,
+});
+
+export const toggleThemeAction = () => ({
+  type: TOGGLE_THEME,
 });

@@ -1,0 +1,47 @@
+.container-login-page {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 100%;
+}
+
+.container-imgs {
+  position: relative;
+}
+
+.circle {
+  animation: spin 4s linear infinite;
+  width: 600px;
+}
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.expense-figure {
+  left: 115px;
+  position: absolute;
+  top: 95px;
+  width: 360px;
+}
+
+.form-login {
+  background-color: #8cb369;
+  padding: 30px;
+  width: max-content;
+}
+
+.logo-trybe-wallet-login {
+  width: 200px;
+}

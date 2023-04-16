@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { resolveFetchCurrency,
   addExpenses,
   uppdateExpanseAction } from '../redux/actions';
+import '../style/WalletForm.css';
 
 const CATEGORIES = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
@@ -96,83 +98,115 @@ class WalletForm extends Component {
     const { currencies, editor } = this.props;
     return (
       <form>
-        <label htmlFor="value">
-          Valor:
-          <input
-            data-testid="value-input"
-            id="value"
-            type="number"
-            name="value"
-            value={ value }
-            onChange={ this.handleChange }
-          />
-        </label>
+        <div className="container-text">
+          <label htmlFor="value">
+            Valor:
+            <input
+              data-testid="value-input"
+              className="input is-info input is-rounded input is-hovered input is-small"
+              id="value"
+              placeholder="Valor da despesa"
+              type="number"
+              name="value"
+              value={ value }
+              onChange={ this.handleChange }
+            />
+          </label>
 
-        <label htmlFor="description">
-          Descrição:
-          <input
-            data-testid="description-input"
-            id="description"
-            type="text"
-            name="description"
-            value={ description }
-            onChange={ this.handleChange }
-          />
-        </label>
+          <label htmlFor="description">
+            Descrição:
+            <input
+              data-testid="description-input"
+              className="input is-info input is-rounded input is-hovered input is-small"
+              id="description"
+              placeholder="Descrição da despesa"
+              type="text"
+              name="description"
+              value={ description }
+              onChange={ this.handleChange }
+            />
+          </label>
+        </div>
 
-        <label htmlFor="currency">
-          Moeda:
-          <select
-            data-testid="currency-input"
-            id="currency"
-            name="currency"
-            value={ currency }
-            onChange={ this.handleChange }
-          >
-            {
-              currencies.map((currencyMap) => (
-                <option key={ currencyMap }>{currencyMap}</option>
-              ))
-            }
-          </select>
-        </label>
+        <div className="container-select">
+          <label htmlFor="currency" className="label-select">
+            Moeda:
+            <div className="select is-link select is-rounded select is-small">
+              <select
+                data-testid="currency-input"
+                id="currency"
+                name="currency"
+                value={ currency }
+                onChange={ this.handleChange }
+              >
+                {
+                  currencies.map((currencyMap) => (
+                    <option key={ currencyMap }>{currencyMap}</option>
+                  ))
+                }
+              </select>
+            </div>
+          </label>
 
-        <label htmlFor="method">
-          Método de Pagamento:
-          <select
-            data-testid="method-input"
-            id="method"
-            name="method"
-            value={ method }
-            onChange={ this.handleChange }
-          >
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
+          <label htmlFor="method" className="label-select">
+            Método de Pagamento:
+            <div className="select is-link select is-rounded select is-small">
+              <select
+                data-testid="method-input"
+                id="method"
+                name="method"
+                value={ method }
+                onChange={ this.handleChange }
+              >
+                <option>Dinheiro</option>
+                <option>Cartão de crédito</option>
+                <option>Cartão de débito</option>
+              </select>
+            </div>
+          </label>
 
-        <label htmlFor="tag">
-          Categoria:
-          <select
-            data-testid="tag-input"
-            id="tag"
-            name="tag"
-            value={ tag }
-            onChange={ this.handleChange }
-          >
-            {
-              CATEGORIES.map((categoryMap) => (
-                <option key={ categoryMap }>{categoryMap}</option>
-              ))
-            }
-          </select>
-        </label>
+          <label htmlFor="tag" className="label-select">
+            Categoria:
+            <div className="select is-link select is-rounded select is-small">
+              <select
+                data-testid="tag-input"
+                id="tag"
+                name="tag"
+                value={ tag }
+                onChange={ this.handleChange }
+              >
+                {
+                  CATEGORIES.map((categoryMap) => (
+                    <option key={ categoryMap }>{categoryMap}</option>
+                  ))
+                }
+              </select>
+            </div>
+          </label>
+        </div>
+
         {
           !editor
-            ? <button onClick={ this.handleSubmit }>Adicionar despesa</button>
-            : <button onClick={ this.handleClickEditExpense }>Editar despesa</button>
+            ? (
+              <button
+                className="button is-info is-rounded"
+                onClick={ this.handleSubmit }
+              >
+                Adicionar despesa
+
+              </button>
+            )
+            : (
+              <button
+                className="button is-info is-rounded"
+                onClick={ this.handleClickEditExpense }
+              >
+                Editar despesa
+
+              </button>
+            )
         }
+
       </form>
     );
   }

@@ -4,14 +4,17 @@ import { screen } from '@testing-library/react';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import App from '../App';
 
+const dataTestIdEmail = 'email-input';
+const dataTestIdPassword = 'password-input';
+
 describe('Testes realizados no componente App', () => {
   const email = 'alguem@alguem.com';
   const password = '123456';
 
   test('testa se os elementos de input e botão estão presentes na tela', () => {
     renderWithRouterAndRedux(<App />);
-    const emailInput = screen.getByRole('textbox', { name: /email:/i });
-    const passwordInput = screen.getByLabelText(/senha:/i);
+    const emailInput = screen.getByTestId(dataTestIdEmail);
+    const passwordInput = screen.getByTestId(dataTestIdPassword);
     const button = screen.getByRole('button', { name: /entrar/i });
 
     expect(emailInput).toBeInTheDocument();
@@ -22,8 +25,8 @@ describe('Testes realizados no componente App', () => {
 
   test('testa se ao digitar um email correto e uma senha menor que 6 dígitos o botão permanece desabilitado', () => {
     renderWithRouterAndRedux(<App />);
-    const emailInput = screen.getByRole('textbox', { name: /email:/i });
-    const passwordInput = screen.getByLabelText(/senha:/i);
+    const emailInput = screen.getByTestId(dataTestIdEmail);
+    const passwordInput = screen.getByTestId(dataTestIdPassword);
     const button = screen.getByRole('button', { name: /entrar/i });
     userEvent.type(emailInput, email);
     userEvent.type(passwordInput, '12345');
@@ -32,8 +35,8 @@ describe('Testes realizados no componente App', () => {
 
   test('testa se ao digitar uma senha com 6 dígitos e um email no formato incorreto, o botão permanece desabilitado', () => {
     renderWithRouterAndRedux(<App />);
-    const emailInput = screen.getByRole('textbox', { name: /email:/i });
-    const passwordInput = screen.getByLabelText(/senha:/i);
+    const emailInput = screen.getByTestId(dataTestIdEmail);
+    const passwordInput = screen.getByTestId(dataTestIdPassword);
     const button = screen.getByRole('button', { name: /entrar/i });
     userEvent.type(emailInput, 'alguem.com');
     userEvent.type(passwordInput, password);
@@ -42,8 +45,8 @@ describe('Testes realizados no componente App', () => {
 
   test('testa se ao digitar nos inputs eles recebem os valores digitados e o botão de Login é habilitado', () => {
     renderWithRouterAndRedux(<App />);
-    const emailInput = screen.getByRole('textbox', { name: /email:/i });
-    const passwordInput = screen.getByLabelText(/senha:/i);
+    const emailInput = screen.getByTestId(dataTestIdEmail);
+    const passwordInput = screen.getByTestId(dataTestIdPassword);
     const button = screen.getByRole('button', { name: /entrar/i });
     userEvent.type(emailInput, email);
     userEvent.type(passwordInput, password);
@@ -55,8 +58,8 @@ describe('Testes realizados no componente App', () => {
 
   test('testa se ao clicar no botão a página é direcionada para a carteira', () => {
     const { history } = renderWithRouterAndRedux(<App />);
-    const emailInput = screen.getByRole('textbox', { name: /email:/i });
-    const passwordInput = screen.getByLabelText(/senha:/i);
+    const emailInput = screen.getByTestId(dataTestIdEmail);
+    const passwordInput = screen.getByTestId(dataTestIdPassword);
     const button = screen.getByRole('button', { name: /entrar/i });
     userEvent.type(emailInput, email);
     userEvent.type(passwordInput, password);
@@ -69,8 +72,8 @@ describe('Testes realizados no componente App', () => {
 
   test('testa se ao clicar no botão o email é salvo no estado global da aplicaçãp', () => {
     const { store } = renderWithRouterAndRedux(<App />);
-    const emailInput = screen.getByRole('textbox', { name: /email:/i });
-    const passwordInput = screen.getByLabelText(/senha:/i);
+    const emailInput = screen.getByTestId(dataTestIdEmail);
+    const passwordInput = screen.getByTestId(dataTestIdPassword);
     const button = screen.getByRole('button', { name: /entrar/i });
     userEvent.type(emailInput, email);
     userEvent.type(passwordInput, password);

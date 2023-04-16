@@ -64,12 +64,8 @@ describe('Testes realizados no componente Table', () => {
     expect(screen.getByRole('cell', {
       name: 'Real',
     })).toBeInTheDocument();
-    expect(screen.getByRole('button', {
-      name: /editar/i,
-    })).toBeInTheDocument();
-    expect(screen.getByRole('button', {
-      name: /excluir/i,
-    })).toBeInTheDocument();
+    expect(screen.getByTestId('edit-btn')).toBeInTheDocument();
+    expect(screen.getByTestId('delete-btn')).toBeInTheDocument();
   });
 
   test('Testa se ao clicar no botão de excluir a despesa é removida da tela', () => {
@@ -78,9 +74,7 @@ describe('Testes realizados no componente Table', () => {
       name: /teste1/i,
     })).toBeInTheDocument();
 
-    const buttonDelete = screen.getByRole('button', {
-      name: /excluir/i,
-    });
+    const buttonDelete = screen.getByTestId('delete-btn');
     userEvent.click(buttonDelete);
 
     expect(screen.queryByRole('cell', {
@@ -92,12 +86,9 @@ describe('Testes realizados no componente Table', () => {
     const { store } = renderWithRouterAndRedux(<Table />, { initialState });
     const description = screen.getByRole('cell', { name: /teste1/i });
     expect(description).toBeInTheDocument();
-    const buttonEdit = screen.getByRole('button', {
-      name: /editar/i,
-    });
+    const buttonEdit = screen.getByTestId('edit-btn');
     userEvent.click(buttonEdit);
     const state = store.getState();
-    console.log(state);
     expect(state.wallet.editor).toEqual(true);
   });
 });

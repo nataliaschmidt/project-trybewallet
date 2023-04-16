@@ -1,0 +1,27 @@
+.container-top {
+  background-color: var(--primary-accent);
+  border-radius: 10px;
+  box-shadow: 2px 4px 15px 2px rgba(5, 18, 54, 0.4);
+  height: 350px;
+  margin: auto;
+  position: relative;
+  width: 70%;
+  z-index: 1;
+}
+
+.theme-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.icon-theme-dark {
+  color: #0a1128;
+  font-size: 1.2em;
+}
+
+.icon-theme-light {
+  color: #fdc500;
+  font-size: 1.2em;
+}
