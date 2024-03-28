@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Iniciar') { 
             steps {
-                    sh 'ssh ubuntu@172.17.0.1 "cd /home/ubuntu/apps/TrybeWallet;export JENKINS_NODE_COOKIE=dontKillMe;pm2 stop TrybeWallet -s;pm2 delete NKS -s"'
+                    sh 'ssh ubuntu@172.17.0.1 "cd /home/ubuntu/apps/TrybeWallet;export JENKINS_NODE_COOKIE=dontKillMe;pm2 stop TrybeWallet --silent;pm2 delete TrybeWallet --silent"'
                     sh 'ssh ubuntu@172.17.0.1 "cd /home/ubuntu/apps/TrybeWallet;pm2 start -n TrybeWallet npm -- start;pm2 save --force"' 
             }
         }
