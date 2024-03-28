@@ -18,8 +18,11 @@ describe('Testes realizados no componente Header', () => {
     expect(screen.getByText(/alguem@alguem\.com/i)).toBeInTheDocument();
   });
 
-  test('Testa se ao ter uma despesa salva o total de despesas tem o valor adequeado calculado', () => {
-    renderWithRouterAndRedux(<Header />, { initialState });
-    expect(screen.getByText(/47.53/i)).toBeInTheDocument();
-  });
+  test(
+    'Testa se ao ter uma despesa salva o total dedespesas tem valor adequeado calculado',
+    () => {
+      renderWithRouterAndRedux(<Header />, { initialState });
+      expect(screen.getByText(/47.53/i)).toBeInTheDocument();
+    },
+  );
 });

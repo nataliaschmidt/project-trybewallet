@@ -4,7 +4,9 @@ const initialState = {
   user: { email: 'alguem@alguem.com' },
   wallet: {
     apiReturn: mockData,
-    currencies: ['USD', 'CAD', 'GBP', 'ARS', 'BTC', 'LTC', 'EUR', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP', 'DOGE'],
+    currencies:
+    ['USD', 'CAD', 'GBP', 'ARS',
+      'BTC', 'LTC', 'EUR', 'JPY', 'CHF', 'AUD', 'CNY', 'ILS', 'ETH', 'XRP', 'DOGE'],
     expenses: [
       {
         id: 0,
